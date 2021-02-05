@@ -1,0 +1,27 @@
+<div class="word-rank-container">
+    <div class="search-topic">
+      <form class="topic-form">
+        <mat-form-field class="full-width">
+          <mat-label>Topic</mat-label>
+          <input matInput [(ngModel)]="topic" name="topic" placeholder="Enter Topic...">
+        </mat-form-field>
+        <button mat-stroked-button color="primary" [disabled]="!topic" (click)='searchTopic()'>Search for topic</button>
+      </form>
+    </div>
+    <mat-spinner *ngIf="searchInProgress"></mat-spinner>
+    <div *ngIf="wordsRank.length">
+        <table mat-table class="full-width" [dataSource]="wordsRank" class="mat-elevation-z8">
+            <ng-container matColumnDef="word">
+              <th mat-header-cell *matHeaderCellDef> Word </th>
+              <td mat-cell *matCellDef="let element"> {{element.word}} </td>
+            </ng-container>
+            <ng-container matColumnDef="rank">
+              <th mat-header-cell *matHeaderCellDef> Rank </th>
+              <td mat-cell *matCellDef="let element"> {{element.rank}} </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+    </div>
+</div>  
