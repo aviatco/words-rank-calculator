@@ -19,6 +19,7 @@ Run Backend
 > - npm start
 
 Run Test (node.JS)
+> - cd Backend
 > - npm run test
 
 #### Author
