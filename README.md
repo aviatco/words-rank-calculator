@@ -5,19 +5,19 @@
 These instructions will get you a copy of the project up and running on your local machine for development and testing (testing partial implemented)
 
 ## Prerequisites
-> install Angular CLI
-> install npm 
+> - install Angular CLI
+> - install npm 
 ## Run project
-Run frontend:
+Run Frontend:
 > - cd Frontend
 > - npm i
 > - npm start
 
-Run backend
+Run Backend
 > - cd Backend
 > - npm i
 > - npm start
-> ## Run Test (node.JS)
+> ##### Run Test (node.JS)
 > - npm run test
 
 #### Author
