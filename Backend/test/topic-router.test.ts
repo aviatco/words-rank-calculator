@@ -19,7 +19,7 @@ describe('TopicRouter', () => {
       }
     })
     
-    it.only('TopicController getTopic should return the content of the first result of given topic', async ()=> {
+    it('TopicController getTopic should return the content of the first result of given topic', async ()=> {
         const topicFetcherServiceStub = sinon.createStubInstance(TopicFetcherService);
         topicFetcherServiceStub.fetchTopicList.withArgs('data').returns(Promise.resolve('test'));
         topicFetcherServiceStub.fetchTopicContent.withArgs('test').returns(Promise.resolve(apiResult))
