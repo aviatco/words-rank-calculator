@@ -18,27 +18,27 @@ export class WordRankHelper {
     }
 
     public static wordsRankCalculator(content: string[]): WordsRankResultDto[] {
-        const {wordOccurenceCount, maxOccurence}= WordRankHelper.calculateWordOccurenceCount(content);
-        WordRankHelper.buildRankRange(maxOccurence);
+        const {wordOccurenceCount, maxOccurence}= this.calculateWordOccurenceCount(content);
+        this.buildRankRange(maxOccurence);
         let wordsRankResult: {[key: string]: string[]} = {"*****": [], "****": [], "***": [], "**": [], "*":[]};
 
         for(const word in wordOccurenceCount){
-            const rank :number = WordRankHelper.findRank(wordOccurenceCount[word]);
+            const rank :number = this.findRank(wordOccurenceCount[word]);
             if(rank > -1){
-                wordsRankResult[WordRankHelper.startsHash[rank]].push(word);
+                wordsRankResult[this.startsHash[rank]].push(word);
             }
 
         }
-        wordsRankResult = WordRankHelper.sortResult(wordsRankResult);
-        return WordRankHelper.wordsRankMapper(wordsRankResult);
+        wordsRankResult = this.sortResult(wordsRankResult);
+        return this.wordsRankMapper(wordsRankResult);
     }
 
-    public static wordsRankMapper(wordRankHash: {[key: string]: string[]}){
+    private static wordsRankMapper(wordRankHash: {[key: string]: string[]}){
         const res: WordsRankResultDto[] = [];
         Object.keys(wordRankHash).forEach(key => {
             res.push(...wordRankHash[key].map(word => {
                 return {
-                    word: WordRankHelper.titleCaseWord(word),
+                    word: this.titleCaseWord(word),
                     rank: key
                 } as WordsRankResultDto
             }))
@@ -74,11 +74,11 @@ export class WordRankHelper {
       }
 
     private static findRank(occurence: number): number{
-        for(const key in WordRankHelper.rankRangeHash){
-            if(occurence <=  WordRankHelper.rankRangeHash[key][1] && occurence >  WordRankHelper.rankRangeHash[key][0]){
+        for(const key in this.rankRangeHash){
+            if(occurence <=  this.rankRangeHash[key][1] && occurence >  this.rankRangeHash[key][0]){
                 return +key;
             }
-            else if(occurence ===  WordRankHelper.rankRangeHash[key][1] && WordRankHelper.rankRangeHash[key][1] === WordRankHelper.rankRangeHash[key][0] ){
+            else if(occurence ===  this.rankRangeHash[key][1] && this.rankRangeHash[key][1] === this.rankRangeHash[key][0] ){
                 return +key;
             }
         }
@@ -87,10 +87,10 @@ export class WordRankHelper {
 
     private static buildRankRange(maxRange: number) {
         const rangeDivision: number = Math.floor(maxRange/4);
-        WordRankHelper.rankRangeHash = {5: [rangeDivision*4,maxRange]};
+        this.rankRangeHash = {5: [rangeDivision*4,maxRange]};
         for(let i=4; i>0; i--){
-            const prevLowerRange = WordRankHelper.rankRangeHash[i+1][0];
-            WordRankHelper.rankRangeHash[i]= [prevLowerRange-rangeDivision, prevLowerRange]
+            const prevLowerRange = this.rankRangeHash[i+1][0];
+            this.rankRangeHash[i]= [prevLowerRange-rangeDivision, prevLowerRange]
         }
     }
 }
