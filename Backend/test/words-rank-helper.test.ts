@@ -11,7 +11,7 @@ describe('WordsRankHalper', () => {
     })
 
     it('word-rank-calculator should return  word-rank hash', ()=> {
-        const result = WordRankHelper.wordsRateCalculator(content.split(" "));
+        const result = WordRankHelper.wordsRankCalculator(content.split(" "));
         const expectedResult = [{word: "Bicycle", rank: "*****"}, 
         {word: "Car", rank: "*****"},
         {word: "Plane", rank: "**"},

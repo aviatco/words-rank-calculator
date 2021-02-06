@@ -21,7 +21,7 @@ export class TopicController implements ITopicController {
     public wordsRateCalculator(textContent: string): WordsRankResultDto[]{
         try{
             const extractContent: string[] = WordRankHelper.extractCleanContent(textContent);
-            return  extractContent.length ? WordRankHelper.wordsRateCalculator(extractContent): [];
+            return  extractContent.length ? WordRankHelper.wordsRankCalculator(extractContent): [];
         }catch(err) {
             console.error('error', err)
             throw new Error(err);

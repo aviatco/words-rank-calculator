@@ -17,10 +17,11 @@ export class WordRankHelper {
         return splitedcontent;
     }
 
-    public static wordsRateCalculator(content: string[]): WordsRankResultDto[] {
+    public static wordsRankCalculator(content: string[]): WordsRankResultDto[] {
         const {wordOccurenceCount, maxOccurence}= WordRankHelper.calculateWordOccurenceCount(content);
         WordRankHelper.buildRankRange(maxOccurence);
         let wordsRankResult: {[key: string]: string[]} = {"*****": [], "****": [], "***": [], "**": [], "*":[]};
+
         for(const word in wordOccurenceCount){
             const rank :number = WordRankHelper.findRank(wordOccurenceCount[word]);
             if(rank > -1){
@@ -85,11 +86,11 @@ export class WordRankHelper {
     }
 
     private static buildRankRange(maxRange: number) {
-        const rangeDevition: number = Math.floor(maxRange/4);
-        WordRankHelper.rankRangeHash = {5: [rangeDevition*4,maxRange]};
+        const rangeDivision: number = Math.floor(maxRange/4);
+        WordRankHelper.rankRangeHash = {5: [rangeDivision*4,maxRange]};
         for(let i=4; i>0; i--){
             const prevLowerRange = WordRankHelper.rankRangeHash[i+1][0];
-            WordRankHelper.rankRangeHash[i]= [prevLowerRange-rangeDevition, prevLowerRange]
+            WordRankHelper.rankRangeHash[i]= [prevLowerRange-rangeDivision, prevLowerRange]
         }
     }
 }

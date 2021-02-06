@@ -19,8 +19,7 @@ export class TopicRouter {
 
     private getContentByTopic = async (req: Request, res: Response, next: NextFunction) => {
         try{
-            const res1 = await this.topicController.getTopicContent(req.params.topic);
-            res.locals.topicContent = res1//await this.topicController.getTopicContent(req.params.topic);
+            res.locals.topicContent = await this.topicController.getTopicContent(req.params.topic);
             next();
         }catch(err){
             next(new HttpException(204, err));

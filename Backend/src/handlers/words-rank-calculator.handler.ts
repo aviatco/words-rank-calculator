@@ -8,7 +8,7 @@ export const wordsRateCalculator = async (request: Request, response: Response, 
     try{
         const content: string[] = WordRankHelper.extractCleanContent(response.locals.topicContent);
         if(content.length === 0) next(new HttpException(204, 'No content'));
-        response.locals.wordsRankResult = WordRankHelper.wordsRateCalculator(content);
+        response.locals.wordsRankResult = WordRankHelper.wordsRankCalculator(content);
         next();
     }catch(err) {
         console.error('error', err)
