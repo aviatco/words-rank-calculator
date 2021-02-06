@@ -75,24 +75,19 @@ export class WordRankHelper {
 
     private static findRank(occurence: number): number{
         for(const key in this.rankRangeHash){
-            if((occurence < this.rankRangeHash[key][1] && occurence >= this.rankRangeHash[key][0])){
+            if((occurence <= this.rankRangeHash[key][1] && occurence > this.rankRangeHash[key][0])){
                 return +key;
             }
-            else if(+key === 5 && occurence === this.rankRangeHash[key][1]) return +key;
         }
         return -1;
     }
 
     private static buildRankRange(maxRange: number) {
         const rangeDivision: number = Math.floor(maxRange/5);
-        this.rankRangeHash = {};
-        let prevLowerRange = 1;
-        for(let i=1; i<=5; i++){
-            //const prevLowerRange = this.rankRangeHash[i+1][0];
-            const upperRange = prevLowerRange+rangeDivision;
-            this.rankRangeHash[i]= [prevLowerRange, upperRange];
-            prevLowerRange = upperRange;
-
+        this.rankRangeHash = {'5' : [rangeDivision*4, maxRange]};
+        for(let i=4; i>0; i--){
+            const prevUpperRange = this.rankRangeHash[i+1][0];
+            this.rankRangeHash[i]= [prevUpperRange - rangeDivision, prevUpperRange];
         }
     }
 }
